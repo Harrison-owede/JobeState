@@ -45,13 +45,6 @@ router.post(
     req.body = Object.fromEntries(
       Object.entries(req.body).map(([k, v]) => [k.trim(), typeof v === "string" ? v.trim() : v])
     );
-
-    console.log("---- EMPLOYER SANITIZED BODY ----");
-    console.log(req.body);
-    console.log("---- EMPLOYER FILE ----");
-    console.log(req.file);
-    console.log("---------------------------------");
-
     next();
   },
   registerEmployerRules, // ✅ should only check employer fields

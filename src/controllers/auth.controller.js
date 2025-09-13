@@ -115,8 +115,7 @@ export const registerUser = asyncHandler(async (req, res) => {
 // });
 
 export const registerEmployer = asyncHandler(async (req, res) => {
-  console.log("BODY:", req.body);
-  console.log("FILE:", req.file);
+
   const { companyName, bio, industry, website, location, email, password } =
     req.body;
 
@@ -126,7 +125,7 @@ export const registerEmployer = asyncHandler(async (req, res) => {
     return res.status(409).json({ error: "Email already in use" });
   }
 
-  // Handle company logo file upload
+
   // Handle company logo file upload (Cloudinary)
   const companyLogo = req.file
     ? {

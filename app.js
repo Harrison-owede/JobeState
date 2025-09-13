@@ -11,6 +11,7 @@ import sanitize from './src/middlewares/sanitize.js';
 import authRoutes from './src/routes/auth.routes.js';
 import fileRoutes from './src/routes/files.routes.js';
 import { notFound, errorHandler } from './src/middlewares/errorHandler.js';
+import jobRoutes from "./src/routes/job.routes.js";
 
 const app = express();
 
@@ -45,12 +46,19 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
+app.get("/jobestate", (req, res) => {
+  res.send("✅ Jobestate Api is running successfully");
+});
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/files', fileRoutes);
+app.use("/api/jobs", jobRoutes);
 
 // Error handlers
 app.use(notFound);
 app.use(errorHandler);
+
+
 
 export default app;
