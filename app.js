@@ -5,7 +5,6 @@ import cors from 'cors';
 import compression from 'compression';
 import hpp from 'hpp';
 import morgan from 'morgan';
-import csrf from 'csurf';
 
 import sanitize from './src/middlewares/sanitize.js';
 import authRoutes from './src/routes/auth.routes.js';
@@ -37,14 +36,7 @@ app.use(
   })
 );
 
-// CSRF (only in production)
-if (process.env.NODE_ENV === 'production') {
-  app.use(csrf({ cookie: true }));
 
-  app.get('/api/csrf-token', (req, res) => {
-    res.json({ csrfToken: req.csrfToken() });
-  });
-}
 
 app.get("/jobestate", (req, res) => {
   res.send("✅ Jobestate Api is running successfully");
