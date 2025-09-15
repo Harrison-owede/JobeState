@@ -39,3 +39,5 @@ tmp/
 
 # Render or deployment artifacts
 .render/
+.env
+.env
