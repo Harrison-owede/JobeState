@@ -115,9 +115,22 @@ export const registerUser = asyncHandler(async (req, res) => {
 // });
 
 export const registerEmployer = asyncHandler(async (req, res) => {
-
   const { companyName, bio, industry, website, location, email, password } =
     req.body;
+
+  // Require all fields
+  if (
+    !companyName ||
+    !bio ||
+    !industry ||
+    !website ||
+    !location ||
+    !email ||
+    !password ||
+    !req.file
+  ) {
+    return res.status(400).json({ error: "All fields (including logo) are required" });
+  }
 
   // Check if email already exists
   const exists = await User.findOne({ email });
@@ -125,18 +138,15 @@ export const registerEmployer = asyncHandler(async (req, res) => {
     return res.status(409).json({ error: "Email already in use" });
   }
 
-
   // Handle company logo file upload (Cloudinary)
-  const companyLogo = req.file
-    ? {
-        url: req.file.path,       // Cloudinary URL
-        publicId: req.file.filename // Cloudinary public ID
-      }
-    : undefined;
+  const companyLogo = {
+    url: req.file.path,        // Cloudinary URL
+    publicId: req.file.filename // Cloudinary public ID
+  };
 
   // Create employer user
   const user = await User.create({
-    fullName: companyName,  // 👈 map companyName to fullName
+    fullName: companyName,
     email,
     password,
     role: "employer",
@@ -155,7 +165,7 @@ export const registerEmployer = asyncHandler(async (req, res) => {
 
   res.status(201).json({
     message: "Employer registered",
-    user: sanitizeUser(user)
+    user: sanitizeUser(user) // make sure sanitizeUser no longer includes `skills`
   });
 });
 
