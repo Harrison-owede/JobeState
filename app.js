@@ -28,14 +28,23 @@ if (process.env.NODE_ENV !== 'test') app.use(morgan('dev'));
 app.use(express.json({ limit: '100kb' }));
 app.use(cookieParser());
 
-// CORS
+const allowedOrigins = process.env.CLIENT_ORIGIN?.split(",") || [];
+
 app.use(
   cors({
-    origin: process.env.CLIENT_ORIGIN?.split(',') || '*',
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or curl)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
-
 
 
 app.get("/jobestate", (req, res) => {
