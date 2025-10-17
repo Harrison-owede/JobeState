@@ -14,6 +14,8 @@ import jobRoutes from "./src/routes/job.routes.js";
 
 const app = express();
 
+
+
 // Trust proxy (needed for Render/Heroku)
 if (process.env.TRUST_PROXY === 'true') app.set('trust proxy', 1);
 
