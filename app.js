@@ -11,6 +11,9 @@ import authRoutes from './src/routes/auth.routes.js';
 import fileRoutes from './src/routes/files.routes.js';
 import { notFound, errorHandler } from './src/middlewares/errorHandler.js';
 import jobRoutes from "./src/routes/job.routes.js";
+import adminRoutes from "./src/routes/admin.routes.js";
+import blogRoutes from "./src/routes/blog.routes.js";
+import applicationRoutes from "./src/routes/application.routes.js";
 
 const app = express();
 
@@ -57,6 +60,9 @@ app.get("/jobestate", (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/files', fileRoutes);
 app.use("/api/jobs", jobRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/blogs", blogRoutes);
+app.use("/api/applications", applicationRoutes);
 
 // Error handlers
 app.use(notFound);

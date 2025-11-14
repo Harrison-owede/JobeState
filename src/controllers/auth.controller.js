@@ -62,57 +62,7 @@ export const registerUser = asyncHandler(async (req, res) => {
 });
 
 
-// export const registerEmployee = asyncHandler(async (req, res) => {
-//   const {
-//     fullName,
-//     email,
-//     password,
-//     bio,
-//     jobCategory,
-//     jobDescription,
-//     skills,
-//     location
-//   } = req.body;
 
-//   // Parse skills (string → array)
-//   const parsedSkills =
-//     typeof skills === "string"
-//       ? skills.split(",").map((s) => s.trim()).filter(Boolean)
-//       : skills;
-
-//   // Check if email already exists
-//   const exists = await User.findOne({ email });
-//   if (exists) {
-//     return res.status(409).json({ error: "Email already in use" });
-//   }
-
-//   // Handle file upload (resume)
-//   const resume = req.file
-//     ? { url: req.file.path, publicId: req.file.filename }
-//     : undefined;
-
-//   // Create employee user
-//   const user = await User.create({
-//     fullName,
-//     email,
-//     password,
-//     role: "employee",
-//     bio,
-//     jobCategory,
-//     jobDescription,
-//     skills: parsedSkills,
-//     location,
-//     resume
-//   });
-
-//   // Issue JWT cookie
-//   issueAuth(res, user);
-
-//   res.status(201).json({
-//     message: "Employee registered",
-//     user: sanitizeUser(user)
-//   });
-// });
 
 export const registerEmployer = asyncHandler(async (req, res) => {
   const { companyName, bio, industry, website, location, email, password } =
